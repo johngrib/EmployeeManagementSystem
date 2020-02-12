@@ -16,12 +16,21 @@ public enum AdminMenu {
         this.description = description;
     }
 
-    final static List<AdminMenu> menu = List.of(EXIT, INPUT_DATA, PRINT_LIST, PRINT, EDIT, DELETE);
+    final static List<AdminMenu> MENU = List.of(EXIT, INPUT_DATA, PRINT_LIST, PRINT, EDIT, DELETE);
 
     public static AdminMenu of(int selected) {
-        if (selected < 0 || selected >= menu.size()) {
+        if (selected < 0 || selected >= MENU.size()) {
             throw new IllegalArgumentException("지원하지 않는 메뉴 번호입니다.");
         }
-        return menu.get(selected);
+        return MENU.get(selected);
+    }
+
+    public static String getMenuString() {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < MENU.size(); i++) {
+            sb.append(String.format("%d: %s, ", i, MENU.get(i).description));
+        }
+        sb = sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
     }
 }

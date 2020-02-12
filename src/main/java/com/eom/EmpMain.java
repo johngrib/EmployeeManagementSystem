@@ -56,6 +56,7 @@ public class EmpMain {
         System.out.println("프로그램 시작");
         while (true) {
             System.out.println("메뉴 선택: ");
+            System.out.println(AdminMenu.getMenuString());
             int menu = scanner.nextInt();
             scanner.nextLine();
 
