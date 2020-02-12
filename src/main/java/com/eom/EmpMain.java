@@ -4,6 +4,7 @@ import com.eom.exception.EmpNoExcessException;
 import com.eom.lifeCycle.EmpDestroy;
 import com.eom.lifeCycle.EmpInit;
 import com.eom.lifeCycle.EmpManagement;
+import com.eom.model.AdminMenu;
 import com.eom.model.Employee;
 import com.eom.util.print.PrintConsole;
 import com.eom.util.print.PrintFile;
@@ -16,12 +17,12 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import static com.eom.model.AdminMenu.*;
+
 public class EmpMain {
     public static void main(String[] args) {
         // 객체 생성
         Scanner scanner = new Scanner(System.in);
-        // 입력값: 메뉴, 이름/전화번호/직급/이메일
-        int menu;
 
         // 초기화
         Readable readable = null;
@@ -54,27 +55,28 @@ public class EmpMain {
 
         System.out.println("프로그램 시작");
         while (true) {
-            System.out.println("메뉴 선택: ");  // print로 하면 코드 실행 안 됨
-            menu = scanner.nextInt();
+            System.out.println("메뉴 선택: ");
+            System.out.println(AdminMenu.getMenuString());
+            int menu = scanner.nextInt();
             scanner.nextLine();
 
-            switch (menu) {
-                case 0: // 종료
+            switch (AdminMenu.of(menu)) {
+                case EXIT:
                     exitMenu(empDestroy);
                     return;
-                case 1: // 입력
+                case INPUT_DATA:
                     inputDataProcess(scanner, empManagement);
                     break;
-                case 2: // 목록
+                case PRINT_LIST:
                     printEmployeeList(empManagement);
                     break;
-                case 3: // 상세
+                case PRINT:
                     printEmployee(scanner, empManagement);
                     break;
-                case 4: // 수정
+                case EDIT:
                     editEmployee(scanner, empManagement);
                     break;
-                case 5: // 삭제
+                case DELETE:
                     deleteEmployee(scanner, empManagement);
                     break;
             }
