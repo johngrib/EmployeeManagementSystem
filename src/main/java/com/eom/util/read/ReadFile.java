@@ -8,12 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadFile implements Readable {
-    private static final String FILE_PATH = "C:\\Users\\NT930QAA\\workspace-employeeManagement\\EmployeeManagementSystem\\emp.txt";
     private final BufferedReader reader;
     private Integer empNoCounter;
 
-    public ReadFile() throws IOException {
-        reader = new BufferedReader(new FileReader(FILE_PATH));
+    public ReadFile(String filePath) throws IOException {
+        reader = new BufferedReader(new FileReader(filePath));
     }
 
     @Override

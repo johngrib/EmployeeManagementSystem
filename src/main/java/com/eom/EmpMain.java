@@ -11,6 +11,9 @@ import com.eom.util.read.ReadFile;
 import com.eom.util.read.Readable;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class EmpMain {
@@ -27,8 +30,10 @@ public class EmpMain {
 
         // 초기화
         Readable readable = null;
+        final String dataFilePath = getDataFilePath();
+
         try {
-            readable = new ReadFile();
+            readable = new ReadFile(dataFilePath);
         } catch (IOException e) {
             System.out.println("파일 연결-1 실패");
             e.printStackTrace();
@@ -126,5 +131,16 @@ public class EmpMain {
                     break;
             }
         }
+    }
+
+    private static String getDataFilePath() {
+        try {
+            final URL resource = EmpMain.class.getResource("/emp.txt");
+            return Paths.get(resource.toURI()).toAbsolutePath().toString();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return null;
     }
 }
