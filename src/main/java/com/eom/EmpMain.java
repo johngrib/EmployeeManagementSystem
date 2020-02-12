@@ -65,72 +65,107 @@ public class EmpMain {
 
             switch (menu) {
                 case 0: // 종료
-                    // 메모리 → 파일
-                    empDestroy.destroy();
-                    System.out.println("시스템 종료");
+                    exitMenu(empDestroy);
                     return;
                 case 1: // 입력
-                    System.out.println("이름: ");
-                    empName = scanner.nextLine();
-                    System.out.println("전화번호: ");
-                    phoneNum = scanner.nextLine();
-                    System.out.println("직급: ");
-                    empRank = scanner.nextLine();
-                    System.out.println("이메일: ");
-                    email = scanner.nextLine();
-
-                    Employee employee = null;
-                    // throw 대신 try-catch문 사용
-                    try {
-                        employee = new Employee
-                                .Builder(empName, phoneNum, empRank)
-                                .email(email)
-                                .build();
-                    } catch (EmpNoExcessException e) {
-                        System.out.println("직원 추가 중 에러 발생: " + e.getMessage());
-                        e.printStackTrace();    // ∴ 프로그램 종료
-                    }
-
-                    empManagement.addEmp(employee);
+                    inputDataProcess(scanner, empManagement);
                     break;
                 case 2: // 목록
-                    System.out.println("직원 목록 출력");
-                    empManagement.printEmp();
+                    printEmployeeList(empManagement);
                     break;
                 case 3: // 상세
-                    System.out.println("직원 상세 정보 출력");
-                    System.out.println("직원번호: ");
-                    empNo = scanner.nextInt();
-                    scanner.nextLine();
-
-                    empManagement.printEmpDetail(empNo);
+                    printEmployee(scanner, empManagement);
                     break;
                 case 4: // 수정
-                    System.out.println("직원 정보 수정");
-                    System.out.println("직원번호: ");
-                    empNo = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.println("이름: ");
-                    empName = scanner.nextLine();
-                    System.out.println("전화번호: ");
-                    phoneNum = scanner.nextLine();
-                    System.out.println("직급: ");
-                    empRank = scanner.nextLine();
-                    System.out.println("이메일: ");
-                    email = scanner.nextLine();
-
-                    empManagement.modifyEmp(empNo, empName, phoneNum, empRank, email);
+                    editEmployee(scanner, empManagement);
                     break;
                 case 5: // 삭제
-                    System.out.println("직원 삭제");
-                    System.out.println("직원번호: ");
-                    empNo = scanner.nextInt();
-                    scanner.nextLine();
-
-                    empManagement.deleteEmp(empNo);
+                    deleteEmployee(scanner, empManagement);
                     break;
             }
         }
+    }
+
+    private static void deleteEmployee(Scanner scanner, EmpManagement empManagement) {
+        Integer empNo;
+        System.out.println("직원 삭제");
+        System.out.println("직원번호: ");
+        empNo = scanner.nextInt();
+        scanner.nextLine();
+
+        empManagement.deleteEmp(empNo);
+    }
+
+    private static void editEmployee(Scanner scanner, EmpManagement empManagement) {
+        Integer empNo;
+        String empName;
+        String phoneNum;
+        String empRank;
+        String email;
+        System.out.println("직원 정보 수정");
+        System.out.println("직원번호: ");
+        empNo = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("이름: ");
+        empName = scanner.nextLine();
+        System.out.println("전화번호: ");
+        phoneNum = scanner.nextLine();
+        System.out.println("직급: ");
+        empRank = scanner.nextLine();
+        System.out.println("이메일: ");
+        email = scanner.nextLine();
+
+        empManagement.modifyEmp(empNo, empName, phoneNum, empRank, email);
+    }
+
+    private static void printEmployee(Scanner scanner, EmpManagement empManagement) {
+        Integer empNo;
+        System.out.println("직원 상세 정보 출력");
+        System.out.println("직원번호: ");
+        empNo = scanner.nextInt();
+        scanner.nextLine();
+
+        empManagement.printEmpDetail(empNo);
+    }
+
+    private static void printEmployeeList(EmpManagement empManagement) {
+        System.out.println("직원 목록 출력");
+        empManagement.printEmp();
+    }
+
+    private static void inputDataProcess(Scanner scanner, EmpManagement empManagement) {
+        String empName;
+        String phoneNum;
+        String empRank;
+        String email;
+        System.out.println("이름: ");
+        empName = scanner.nextLine();
+        System.out.println("전화번호: ");
+        phoneNum = scanner.nextLine();
+        System.out.println("직급: ");
+        empRank = scanner.nextLine();
+        System.out.println("이메일: ");
+        email = scanner.nextLine();
+
+        Employee employee = null;
+        // throw 대신 try-catch문 사용
+        try {
+            employee = new Employee
+                    .Builder(empName, phoneNum, empRank)
+                    .email(email)
+                    .build();
+        } catch (EmpNoExcessException e) {
+            System.out.println("직원 추가 중 에러 발생: " + e.getMessage());
+            e.printStackTrace();    // ∴ 프로그램 종료
+        }
+
+        empManagement.addEmp(employee);
+    }
+
+    private static void exitMenu(EmpDestroy empDestroy) {
+        // 메모리 → 파일
+        empDestroy.destroy();
+        System.out.println("시스템 종료");
     }
 
     private static String getDataFilePath() {
