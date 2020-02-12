@@ -22,11 +22,6 @@ public class EmpMain {
         Scanner scanner = new Scanner(System.in);
         // 입력값: 메뉴, 이름/전화번호/직급/이메일
         int menu;
-        Integer empNo;
-        String empName;
-        String phoneNum;
-        String empRank;
-        String email;
 
         // 초기화
         Readable readable = null;
@@ -87,33 +82,28 @@ public class EmpMain {
     }
 
     private static void deleteEmployee(Scanner scanner, EmpManagement empManagement) {
-        Integer empNo;
         System.out.println("직원 삭제");
         System.out.println("직원번호: ");
-        empNo = scanner.nextInt();
+        Integer empNo = scanner.nextInt();
         scanner.nextLine();
 
         empManagement.deleteEmp(empNo);
     }
 
     private static void editEmployee(Scanner scanner, EmpManagement empManagement) {
-        Integer empNo;
-        String empName;
-        String phoneNum;
-        String empRank;
-        String email;
         System.out.println("직원 정보 수정");
         System.out.println("직원번호: ");
-        empNo = scanner.nextInt();
+        Integer empNo = scanner.nextInt();
         scanner.nextLine();
+
         System.out.println("이름: ");
-        empName = scanner.nextLine();
+        String empName = scanner.nextLine();
         System.out.println("전화번호: ");
-        phoneNum = scanner.nextLine();
+        String phoneNum = scanner.nextLine();
         System.out.println("직급: ");
-        empRank = scanner.nextLine();
+        String empRank = scanner.nextLine();
         System.out.println("이메일: ");
-        email = scanner.nextLine();
+        String email = scanner.nextLine();
 
         empManagement.modifyEmp(empNo, empName, phoneNum, empRank, email);
     }
@@ -134,18 +124,14 @@ public class EmpMain {
     }
 
     private static void inputDataProcess(Scanner scanner, EmpManagement empManagement) {
-        String empName;
-        String phoneNum;
-        String empRank;
-        String email;
         System.out.println("이름: ");
-        empName = scanner.nextLine();
+        String empName = scanner.nextLine();
         System.out.println("전화번호: ");
-        phoneNum = scanner.nextLine();
+        String phoneNum = scanner.nextLine();
         System.out.println("직급: ");
-        empRank = scanner.nextLine();
+        String empRank = scanner.nextLine();
         System.out.println("이메일: ");
-        email = scanner.nextLine();
+        String email = scanner.nextLine();
 
         Employee employee = null;
         // throw 대신 try-catch문 사용
